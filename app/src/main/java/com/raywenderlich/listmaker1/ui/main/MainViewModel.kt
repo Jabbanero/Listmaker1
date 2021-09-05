@@ -1,7 +1,35 @@
 package com.raywenderlich.listmaker1.ui.main
 
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
+import com.raywenderlich.listmaker1.TaskList
 
-class MainViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
+
+    //used to inform other classes when a list is added
+    lateinit var onListAdded: (() -> Unit)
+
+    //create an empty list. when called, list is populated with retrieveLists()
+    val lists: MutableList<TaskList> by lazy {
+        retrieveLists()
+    }
+
+    //retrieve TaskLists from SharedPreferences.
+    private fun retrieveLists(): MutableList<TaskList>{
+        val sharedPreferencesContents = sharedPreferences.all
+        val taskLists = ArrayList<TaskList>()
+
+        //add each TaskList to taskLists as hash sets
+        for(taskList in sharedPreferencesContents){
+            val itemsHashSet = ArrayList(taskList.value as HashSet<String>)
+            val list = TaskList(taskList.key, itemsHashSet)
+            taskLists.add(list)
+        }
+        return taskLists
+    }
+    fun saveList(list: TaskList){
+        sharedPreferences.edit().putStringSet(list.name, list.tasks.toHashSet()).apply()    //
+        lists.add(list)
+        onListAdded.invoke()    //inform other classes to the change
+    }
 }
