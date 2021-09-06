@@ -15,7 +15,6 @@ class MainFragment : Fragment() {
 
     private lateinit var binding: MainFragmentBinding
 
-
     companion object {
         fun newInstance() = MainFragment()
     }
@@ -29,15 +28,13 @@ class MainFragment : Fragment() {
         //binding.listsRecyclerview.adapter = ListSelectionRecyclerViewAdapter()
 
         return binding.root
-
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity(),
-        MainViewModelFactory(PreferenceManager.getDefaultSharedPreferences(requireActivity())))
-            .get(MainViewModel::class.java)
+                MainViewModelFactory(PreferenceManager.getDefaultSharedPreferences(requireActivity())))
+                .get(MainViewModel::class.java)
 
         val recyclerViewAdapter = ListSelectionRecyclerViewAdapter(viewModel.lists)
         binding.listsRecyclerview.adapter = recyclerViewAdapter
@@ -45,5 +42,4 @@ class MainFragment : Fragment() {
             recyclerViewAdapter.listsUpdated()
         }
     }
-
 }

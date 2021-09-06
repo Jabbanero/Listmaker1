@@ -1,5 +1,6 @@
 package com.raywenderlich.listmaker1
 
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.raywenderlich.listmaker1.databinding.MainActivityBinding
+import com.raywenderlich.listmaker1.models.TaskList
 import com.raywenderlich.listmaker1.ui.main.MainFragment
 import com.raywenderlich.listmaker1.ui.main.MainViewModel
 import com.raywenderlich.listmaker1.ui.main.MainViewModelFactory
@@ -33,14 +35,14 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
-                .commitNow()
+                    .replace(R.id.container, MainFragment.newInstance())
+                    .commitNow()
         }
 
-        binding.fabButton.setOnClickListener{
+        binding.fabButton.setOnClickListener {
             showCreateListDialog()
-            }
         }
+    }
 
     private fun showCreateListDialog() {
 
@@ -52,13 +54,16 @@ class MainActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         val listTitleEditText = EditText(this)
         listTitleEditText.inputType = InputType.TYPE_CLASS_TEXT
+
         builder.setTitle(dialogTitle)
         builder.setView(listTitleEditText)
 
         //add positive button
-        builder.setPositiveButton(positiveButtonTitle) { dialog, _ -> dialog.dismiss() }
-        //create a new list
-        viewModel.saveList(TaskList(listTitleEditText.text.toString()))
+        builder.setPositiveButton(positiveButtonTitle) { dialog, _ ->
+            dialog.dismiss()
+            //create a new list
+            viewModel.saveList(TaskList(listTitleEditText.text.toString()))
+        }
 
         //display dialog
         builder.create().show()

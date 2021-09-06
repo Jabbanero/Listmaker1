@@ -2,7 +2,7 @@ package com.raywenderlich.listmaker1.ui.main
 
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
-import com.raywenderlich.listmaker1.TaskList
+import com.raywenderlich.listmaker1.models.TaskList
 
 class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
 
@@ -27,8 +27,9 @@ class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
         }
         return taskLists
     }
-    fun saveList(list: TaskList){
-        sharedPreferences.edit().putStringSet(list.name, list.tasks.toHashSet()).apply()    //
+
+    fun saveList(list: TaskList) {
+        sharedPreferences.edit().putStringSet(list.name, list.tasks.toHashSet()).apply()
         lists.add(list)
         onListAdded.invoke()    //inform other classes to the change
     }

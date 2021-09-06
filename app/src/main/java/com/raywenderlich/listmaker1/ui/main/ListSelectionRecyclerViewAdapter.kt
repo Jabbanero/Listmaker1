@@ -1,9 +1,10 @@
 package com.raywenderlich.listmaker1.ui.main
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.raywenderlich.listmaker1.TaskList
+import com.raywenderlich.listmaker1.models.TaskList
 import com.raywenderlich.listmaker1.databinding.ListSelectionViewHolderBinding
 
 class ListSelectionRecyclerViewAdapter(private val lists : MutableList<TaskList>) : RecyclerView.Adapter<ListSelectionViewHolder>() {
