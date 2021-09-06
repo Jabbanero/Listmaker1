@@ -15,8 +15,9 @@ class ListItemsRecyclerViewAdapter(var list: TaskList) : RecyclerView.Adapter<Li
         return ListItemViewHolder(binding)
     }
 
+    //bind textView to current task
     override fun onBindViewHolder(holder: ListItemViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.binding.textViewTask.text = list.tasks[position]
     }
 
     override fun getItemCount(): Int {
