@@ -15,12 +15,12 @@ class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
     }
 
     //retrieve TaskLists from SharedPreferences.
-    private fun retrieveLists(): MutableList<TaskList>{
+    private fun retrieveLists(): MutableList<TaskList> {
         val sharedPreferencesContents = sharedPreferences.all
         val taskLists = ArrayList<TaskList>()
 
         //add each TaskList to taskLists as hash sets
-        for(taskList in sharedPreferencesContents){
+        for (taskList in sharedPreferencesContents) {
             val itemsHashSet = ArrayList(taskList.value as HashSet<String>)
             val list = TaskList(taskList.key, itemsHashSet)
             taskLists.add(list)
