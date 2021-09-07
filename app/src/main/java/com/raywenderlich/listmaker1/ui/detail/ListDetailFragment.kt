@@ -25,7 +25,11 @@ class ListDetailFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
         //create and return viewBinding
         binding = ListDetailFragmentBinding.inflate(
@@ -38,8 +42,11 @@ class ListDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory(PreferenceManager.
-            getDefaultSharedPreferences(requireActivity()))).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(
+            requireActivity(), MainViewModelFactory(
+                PreferenceManager.getDefaultSharedPreferences(requireActivity())
+            )
+        ).get(MainViewModel::class.java)
 
         //get list and assign to viewmodel, set activity title
         val list: TaskList? = arguments?.getParcelable(MainActivity.INTENT_LIST_KEY)

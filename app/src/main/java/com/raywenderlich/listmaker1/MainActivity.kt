@@ -28,7 +28,8 @@ class MainActivity : AppCompatActivity(), MainFragment.MainFragmentInteractionLi
         super.onCreate(savedInstanceState)
 
         viewModel = ViewModelProvider(
-            this, MainViewModelFactory(PreferenceManager.getDefaultSharedPreferences(this)))
+            this, MainViewModelFactory(PreferenceManager.getDefaultSharedPreferences(this))
+        )
             .get(MainViewModel::class.java)
 
         binding = MainActivityBinding.inflate(layoutInflater)
@@ -86,18 +87,23 @@ class MainActivity : AppCompatActivity(), MainFragment.MainFragmentInteractionLi
     }
 
     private fun showListDetail(list: TaskList) {
-        if(binding.mainFragmentContainer == null) {
+        if (binding.mainFragmentContainer == null) {
             //create the intent
             val listDetailIntent = Intent(this, ListDetailActivity::class.java)
             //pass list and key as extras
             listDetailIntent.putExtra(INTENT_LIST_KEY, list)
             //start the intent activity
             startActivityForResult(listDetailIntent, LIST_DETAIL_REQUEST_CODE)
-        } else{
+        } else {
             val bundle = bundleOf(INTENT_LIST_KEY to list)
-            supportFragmentManager.commit{
+            supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                replace(R.id.list_detail_fragment_container, ListDetailFragment::class.java, bundle, null)
+                replace(
+                    R.id.list_detail_fragment_container,
+                    ListDetailFragment::class.java,
+                    bundle,
+                    null
+                )
             }
             binding.fabButton.setOnClickListener {
                 showCreateTaskDialog()

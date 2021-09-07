@@ -33,7 +33,7 @@ class ListSelectionRecyclerViewAdapter(
         holder.binding.itemNumber.text = (position + 1).toString()
         holder.binding.itemString.text = lists[position].name
         //add onClickListener
-        holder.itemView.setOnClickListener{
+        holder.itemView.setOnClickListener {
             clickListener.listItemClicked(lists[position])
         }
     }
