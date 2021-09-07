@@ -8,6 +8,13 @@ class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
 
     //used to inform other classes when a list is added
     lateinit var onListAdded: (() -> Unit)
+    lateinit var list: TaskList
+    lateinit var onTaskAdded: (() -> Unit)
+
+    fun addTask(task: String) {
+        list.tasks.add(task)
+        onTaskAdded.invoke()
+    }
 
     //create an empty list. when called, list is populated with retrieveLists()
     val lists: MutableList<TaskList> by lazy {
@@ -44,4 +51,6 @@ class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
         lists.clear()
         lists.addAll(retrieveLists())
     }
+
+
 }
